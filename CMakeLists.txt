@@ -93,7 +93,12 @@ if (UNIX AND NOT APPLE)
   set(ADDITIONAL_EXECUTABLES "astra_usb_reset")
 endif()
 
-install(TARGETS astra_wrapper astra_camera_nodelet astra_camera_node astra_list_devices astra_driver_lib ${ADDITIONAL_EXECUTABLES}
+set(CMAKE_CXX_STANDARD 14)
+
+add_executable(astra_debug ros/astra_debug.cpp)
+target_link_libraries(astra_debug astra_wrapper ${Boost_LIBRARIES} ${libastra_LIBRARIES})
+
+install(TARGETS astra_wrapper astra_camera_nodelet astra_camera_node astra_list_devices astra_driver_lib ${ADDITIONAL_EXECUTABLES} astra_debug
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
